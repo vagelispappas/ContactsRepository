@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contacts
 {
-    class ContactContext : IOperation
+    public class ContactContext : IOperation
     {
         private readonly List<IEntity> _contactList = new List<IEntity>();
 
