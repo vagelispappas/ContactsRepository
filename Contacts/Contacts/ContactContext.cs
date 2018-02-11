@@ -6,17 +6,43 @@ using System.Threading.Tasks;
 
 namespace Contacts
 {
-    class ContactContext:IOperation
+    class ContactContext : IOperation
     {
-        private readonly List<IEntity> _contactList;
+        private readonly List<IEntity> _contactList = new List<IEntity>();
 
-        public ContactContext()
+        public ContactContext(IEntity entity)
         {
-            _contactList = new List<IEntity>();
+            if (entity != null)
+            {
+                entity.ID = _contactList.Count + 1;
+            }
+            _contactList.Add(entity);
+            _contactList = GetAll().ToList();
         }
+
+        public ContactContext(IEnumerable<IEntity> entities)
+        {
+            _contactList.AddRange(entities);
+        }
+
         public void Add(IEntity entity)
         {
+            if (entity != null)
+                entity.ID = _contactList.Count + 1;
+
             _contactList.Add(entity);
+        }
+
+        public void AddRange(IEnumerable<IEntity> entities)
+        {
+            if (entities.ToList().Count != 0)
+            {
+                foreach (var item in entities.ToList())
+                {
+                    item.ID = _contactList.Count + 1;
+                    _contactList.Add(item);
+                }
+            }
         }
 
         public IEntity Get(int id)
@@ -27,7 +53,7 @@ namespace Contacts
 
         public IEnumerable<IEntity> GetAll()
         {
-            return 
+            return
                 _contactList;
         }
 

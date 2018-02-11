@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Contacts
+﻿namespace Contacts
 {
     public enum ContactType
     {
-        Work =1,
+        Work = 1,
         CellPhone = 2,
         Home = 3
     }
 
-    class Contact:IEntity
+    class Contact : IEntity
     {
         private int _id;
         private string _firstName;
@@ -21,21 +15,20 @@ namespace Contacts
         private ContactType _contactType;
 
         public Contact()
-        { 
+        {
 
         }
 
-        public Contact(int id, string firstName, string lastName, ContactType contactType)
+        public Contact(string firstName, string lastName, ContactType contactType)
         {
-            _id = id;
             _firstName = firstName;
             _lastName = lastName;
             _contactType = contactType;
         }
 
-        public string FullName => $"{_firstName} {_lastName}";
+        public string ContactDetails => $"{_firstName} -- {_lastName} -- {_contactType}";
 
-        int IEntity.ID
+        public int ID
         {
             get
             {
@@ -44,6 +37,42 @@ namespace Contacts
             set
             {
                 _id = value;
+            }
+        }
+
+        public string FirstName
+        {
+            get
+            {
+                return _firstName;
+            }
+            set
+            {
+                _firstName = value;
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+            set
+            {
+                _lastName = value;
+            }
+        }
+
+        public ContactType ContactType
+        {
+            get
+            {
+                return _contactType;
+            }
+            set
+            {
+                _contactType = value;
             }
         }
     }
